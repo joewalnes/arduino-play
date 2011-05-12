@@ -13,21 +13,7 @@ CXXFLAGS=$(CFLAGS) -fno-exceptions
 
 APP=blinky
 
-DEPS=\
-		 $(ARDSRC)/pins_arduino.c \
-		 $(ARDSRC)/wiring.c \
-		 $(ARDSRC)/wiring_digital.c \
-		 $(ARDSRC)/HardwareSerial.cpp \
-		 $(ARDSRC)/Print.cpp \
-		 $(ARDSRC)/WString.cpp \
-		 $(ARDSRC)/wiring_analog.c \
-		 $(ARDSRC)/wiring_pulse.c \
-		 $(ARDSRC)/wiring_shift.c \
-		 $(ARDSRC)/WInterrupts.c \
-		 $(ARDSRC)/Tone.cpp \
-		 $(ARDSRC)/main.cpp \
-		 $(ARDSRC)/WMath.cpp
-
+DEPS=$(wildcard $(ARDSRC)/*.c) $(wildcard $(ARDSRC)/*.cpp)
 
 .PHONY: all clean upload
 
