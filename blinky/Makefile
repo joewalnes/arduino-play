@@ -4,7 +4,7 @@ PORT=/dev/tty.usbserial*
 BAUD=57600
 PROTOCOL=stk500v1
 
-ARDSRC=/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino
+ARDSRC=../lib/arduino/cores/arduino
 
 CC=avr-gcc
 CXX=avr-g++
