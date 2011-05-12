@@ -19,13 +19,14 @@ DEPS=$(wildcard $(ARDSRC)/*.c) $(wildcard $(ARDSRC)/*.cpp)
 
 all: $(APP).hex
 
-deps: $(DEPS)
+build/deps/arduinocore.a: $(DEPS)
 	mkdir -p build/deps
 	cp -R $^ build/deps
 	ls build/deps/*.c   | sed -e 's/.c/.o/'   | xargs make
 	ls build/deps/*.cpp | sed -e 's/.cpp/.o/' | xargs make
+	(cd build/deps &&  avr-ar cq arduinocore.a *.o)
 
-$(APP).elf: $(wildcard *.c) $(wildcard *.cpp) $(wildcard build/deps/*.o)
+$(APP).elf: $(wildcard *.c) $(wildcard *.cpp) build/deps/arduinocore.a
 	$(CC) $(CFLAGS) -s -o $@ $^
 
 $(APP).hex: $(APP).elf
