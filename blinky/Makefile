@@ -25,6 +25,7 @@ DEPS=\
 		 $(ARDSRC)/wiring_shift.c \
 		 $(ARDSRC)/WInterrupts.c \
 		 $(ARDSRC)/Tone.cpp \
+		 $(ARDSRC)/main.cpp \
 		 $(ARDSRC)/WMath.cpp
 
 
