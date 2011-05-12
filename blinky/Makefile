@@ -8,7 +8,7 @@ ARDSRC=../lib/arduino/cores/arduino
 
 CC=avr-gcc
 CXX=avr-g++
-CFLAGS=-w -g -Os -ffunction-sections -fdata-sections -DF_CPU=$(F_CPU) -mmcu=$(MCU) -I$(ARDSRC) -DARDUINO=22 -lm
+CFLAGS=-w -g -Os -ffunction-sections -fdata-sections -DF_CPU=$(F_CPU) -mmcu=$(MCU) -I$(ARDSRC) -I../common -DARDUINO=22 -lm
 CXXFLAGS=$(CFLAGS) -fno-exceptions
 
 APP=blinky
