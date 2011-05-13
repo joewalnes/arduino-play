@@ -18,7 +18,6 @@ build/deps/arduinocore.a: $(wildcard ../lib/arduino/cores/arduino/*.c) $(wildcar
 	(cd build/deps &&  avr-ar cq arduinocore.a *.o)
 
 $(APP).elf: $(wildcard *.c) $(wildcard *.cpp) build/deps/arduinocore.a
-	$(CC) $(CFLAGS) -s -o $@ $^
 
 clean:
 	rm -rf $(wildcard *.elf) $(wildcard *.hex) build

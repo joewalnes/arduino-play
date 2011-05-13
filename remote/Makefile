@@ -25,7 +25,6 @@ build/deps/irremote.a: ../lib/IRremote/*.cpp
 	(cd build/deps/irremote &&  avr-ar cq ../irremote.a *.o)
 
 $(APP).elf: $(wildcard *.c) $(wildcard *.cpp) build/deps/irremote.a build/deps/arduinocore.a
-	$(CC) $(CFLAGS) -s -o $@ $^
 
 clean:
 	rm -rf $(wildcard *.elf) $(wildcard *.hex) build

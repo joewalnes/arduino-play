@@ -6,3 +6,5 @@ CXXFLAGS += $(CFLAGS) -fno-exceptions
 %.hex: %.elf
 	avr-objcopy -O ihex -R .eeprom $< $@
 
+%.elf:
+	$(CC) $(CFLAGS) -s -o $@ $^
