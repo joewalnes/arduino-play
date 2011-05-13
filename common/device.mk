@@ -1,0 +1,5 @@
+F_CPU=16000000L
+MCU=atmega328p
+PORT=/dev/tty.usbserial*
+BAUD=57600
+PROTOCOL=stk500v1
