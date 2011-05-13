@@ -10,13 +10,6 @@ APP=blinky
 
 all: $(APP).hex
 
-build/deps/arduinocore.a: $(wildcard ../lib/arduino/cores/arduino/*.c) $(wildcard ../lib/arduino/cores/arduino/*.cpp)
-	mkdir -p build/deps
-	cp -R $^ build/deps
-	ls build/deps/*.c   | sed -e 's/.c/.o/'   | xargs make
-	ls build/deps/*.cpp | sed -e 's/.cpp/.o/' | xargs make
-	(cd build/deps &&  avr-ar cq arduinocore.a *.o)
-
 $(APP).elf: $(wildcard *.c) $(wildcard *.cpp) build/deps/arduinocore.a
 
 clean:
