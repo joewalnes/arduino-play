@@ -1,21 +1,15 @@
 include ../common/device.mk
+include ../common/arduino.mk
 
-ARDSRC=../lib/arduino/cores/arduino
-
-CC=avr-gcc
-CXX=avr-g++
-CFLAGS=-w -g -Os -ffunction-sections -fdata-sections -DF_CPU=$(F_CPU) -mmcu=$(MCU) -I$(ARDSRC) -I../lib/IRremote -I../common -DARDUINO=22 -lm
-CXXFLAGS=$(CFLAGS) -fno-exceptions
+CFLAGS += -I../lib/arduino/cores/arduino -I../lib/IRremote -I../common 
 
 APP=remote
-
-DEPS=$(wildcard $(ARDSRC)/*.c) $(wildcard $(ARDSRC)/*.cpp)
 
 .PHONY: all clean upload
 
 all: $(APP).hex
 
-build/deps/arduinocore.a: $(DEPS)
+build/deps/arduinocore.a: $(wildcard ../lib/arduino/cores/arduino/*.c) $(wildcard ../lib/arduino/cores/arduino/*.cpp)
 	mkdir -p build/deps/arduinocore
 	cp -R $^ build/deps/arduinocore
 	ls build/deps/arduinocore/*.c   | sed -e 's/\.c/.o/'   | xargs make
