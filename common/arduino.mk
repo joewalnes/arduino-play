@@ -16,9 +16,9 @@ upload: $(APP).hex
 	avrdude -F -V -D -c $(PROTOCOL) -p $(MCU) -P $(PORT) -b $(BAUD) -U flash:w:$<
 .PHONY: upload
 
-terminal:
+serial:
 	screen $(PORT) $(BAUD)
-.PHONY: terminal
+.PHONY: serial
 
 clean:
 	rm -rf $(wildcard *.elf) $(wildcard *.hex) build
