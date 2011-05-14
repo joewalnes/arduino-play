@@ -1,10 +1,10 @@
 PROJECTS = blinky remote
 
-.PHONY: all clean
+.PHONY: compile clean
 
-all:
-	for PROJECT in $(PROJECTS); do pushd $$PROJECT; make; popd; done
+compile:
+	set -e; for PROJECT in $(PROJECTS); do pushd $$PROJECT; make compile; popd; done
 
 clean:
-	for PROJECT in $(PROJECTS); do pushd $$PROJECT; make clean; popd; done
+	set -e; for PROJECT in $(PROJECTS); do pushd $$PROJECT; make clean; popd; done
 

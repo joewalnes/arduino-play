@@ -3,11 +3,26 @@ CXX      = avr-g++
 CFLAGS   += -w -g -Os -ffunction-sections -fdata-sections -DF_CPU=$(F_CPU) -mmcu=$(MCU) -DARDUINO=22 -lm
 CXXFLAGS += $(CFLAGS) -fno-exceptions
 
+compile: $(APP).hex
+.PHONY: compile
+
 %.hex: %.elf
 	avr-objcopy -O ihex -R .eeprom $< $@
 
-%.elf:
+%.elf: $(wildcard *.c) $(wildcard *.cpp) 
 	$(CC) $(CFLAGS) -s -o $@ $^
+
+upload: $(APP).hex
+	avrdude -F -V -D -c $(PROTOCOL) -p $(MCU) -P $(PORT) -b $(BAUD) -U flash:w:$<
+.PHONY: upload
+
+terminal:
+	screen $(PORT) $(BAUD)
+.PHONY: terminal
+
+clean:
+	rm -rf $(wildcard *.elf) $(wildcard *.hex) build
+.PHONY: clean
 
 build/deps/arduinocore.a: $(wildcard ../lib/arduino/cores/arduino/*.c) $(wildcard ../lib/arduino/cores/arduino/*.cpp)
 	mkdir -p build/deps/arduinocore
