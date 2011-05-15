@@ -4,7 +4,7 @@ CFLAGS   += -w -g -Os -ffunction-sections -fdata-sections -lm
 CFLAGS   += -DBAUD=$(BAUD) -DF_CPU=$(F_CPU) -mmcu=$(MCU) -DARDUINO=22 -lm
 CXXFLAGS += $(CFLAGS) -fno-exceptions
 
-compile: $(APP).hex
+compile: app.hex
 .PHONY: compile
 
 %.hex: %.elf
@@ -13,7 +13,7 @@ compile: $(APP).hex
 %.elf: $(wildcard *.c) $(wildcard *.cpp) 
 	$(CC) $(CFLAGS) -s -o $@ $^
 
-upload: $(APP).hex
+upload: app.hex
 	avrdude -F -V -D -c $(PROTOCOL) -p $(MCU) -P $(PORT) -b $(BAUD) -U flash:w:$<
 .PHONY: upload
 
