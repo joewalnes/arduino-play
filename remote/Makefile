@@ -1,6 +1,4 @@
 # See ../README.txt
-
-include ../common/device.mk
 include ../common/arduino.mk
 
 CFLAGS += -I../common 

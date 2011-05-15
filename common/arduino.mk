@@ -4,6 +4,12 @@ CFLAGS   += -w -g -Os -ffunction-sections -fdata-sections -lm
 CFLAGS   += -DBAUD=$(BAUD) -DF_CPU=$(F_CPU) -mmcu=$(MCU) -DARDUINO=22 -lm
 CXXFLAGS += $(CFLAGS) -fno-exceptions
 
+include ../common/device.mk
+
+ifneq ($(DEVICE_SET),true)
+	$(error Need to specify DEVICE (e.g. make DEVICE=foo ...). Available devices: $(AVAILABLE_DEVICES))
+endif
+
 compile: app.hex
 .PHONY: compile
 
@@ -11,15 +17,9 @@ compile: app.hex
 	avr-objcopy -O ihex -R .eeprom $< $@
 
 %.elf: $(wildcard *.c) $(wildcard *.cpp) 
-ifneq ($(DEVICE_SET),true)
-	$(error Need to specify DEVICE (e.g. make DEVICE=foo ...). Available devices: $(AVAILABLE_DEVICES))
-endif
 	$(CC) $(CFLAGS) -s -o $@ $^
 
 upload: app.hex
-ifneq ($(DEVICE_SET),true)
-	$(error Need to specify DEVICE (e.g. make DEVICE=foo ...). Available devices: $(AVAILABLE_DEVICES))
-endif
 	avrdude -F -V -D -c $(PROTOCOL) -p $(MCU) -P $(PORT) -b $(BAUD) -U flash:w:$<
 .PHONY: upload
 
@@ -32,9 +32,6 @@ clean:
 .PHONY: clean
 
 build/deps/arduinocore.a: $(wildcard ../lib/arduino/cores/arduino/*.c) $(wildcard ../lib/arduino/cores/arduino/*.cpp)
-ifneq ($(DEVICE_SET),true)
-	$(error Need to specify DEVICE (e.g. make DEVICE=foo ...). Available devices: $(AVAILABLE_DEVICES))
-endif
 	mkdir -p build/deps/arduinocore
 	cp -R $^ build/deps/arduinocore
 	ls build/deps/arduinocore/*.c   | sed -e 's/\.c/.o/'   | xargs make
@@ -42,9 +39,6 @@ endif
 	(cd build/deps/arduinocore &&  avr-ar cq ../arduinocore.a *.o)
 
 build/deps/irremote.a: ../lib/IRremote/*.cpp
-ifneq ($(DEVICE_SET),true)
-	$(error Need to specify DEVICE (e.g. make DEVICE=foo ...). Available devices: $(AVAILABLE_DEVICES))
-endif
 	mkdir -p build/deps/irremote
 	cp -R $^ build/deps/irremote
 	ls build/deps/irremote/*.cpp | sed -e 's/.cpp/.o/' | xargs make
