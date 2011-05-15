@@ -1,4 +1,4 @@
-PROJECTS = blinky remote
+PROJECTS = blinky remote serial
 
 .PHONY: compile clean
 
