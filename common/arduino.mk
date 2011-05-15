@@ -1,6 +1,7 @@
 CC       = avr-gcc
 CXX      = avr-g++
-CFLAGS   += -w -g -Os -ffunction-sections -fdata-sections -DF_CPU=$(F_CPU) -mmcu=$(MCU) -DARDUINO=22 -lm
+CFLAGS   += -w -g -Os -ffunction-sections -fdata-sections -lm
+CFLAGS   += -DBAUD=$(BAUD) -DF_CPU=$(F_CPU) -mmcu=$(MCU) -DARDUINO=22 -lm
 CXXFLAGS += $(CFLAGS) -fno-exceptions
 
 compile: $(APP).hex

@@ -3,7 +3,8 @@
 int led = HIGH;
 
 void setup() {
-	Serial.begin(57600);
+	Serial.begin(BAUD);
+  Serial.println("Hello...");
   pinMode(13, OUTPUT);
 }
 
