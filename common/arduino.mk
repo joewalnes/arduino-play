@@ -7,7 +7,7 @@ CXXFLAGS += $(CFLAGS) -fno-exceptions
 include ../common/device.mk
 
 ifneq ($(DEVICE_SET),true)
-	$(error Need to specify DEVICE (e.g. make DEVICE=foo ...). Available devices: $(AVAILABLE_DEVICES))
+$(error Need to specify DEVICE (e.g. make DEVICE=foo ...). Available devices: $(AVAILABLE_DEVICES))
 endif
 
 compile: app.hex
