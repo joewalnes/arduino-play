@@ -44,3 +44,10 @@ build/deps/irremote.a: ../lib/IRremote/*.cpp
 	ls build/deps/irremote/*.cpp | sed -e 's/.cpp/.o/' | xargs make
 	(cd build/deps/irremote &&  avr-ar cq ../irremote.a *.o)
 
+build/deps/newsoftserial.a: ../lib/NewSoftSerial/*.cpp
+	mkdir -p build/deps/newsoftserial
+	cp -R $^ build/deps/newsoftserial
+	ls build/deps/newsoftserial/*.cpp | sed -e 's/.cpp/.o/' | xargs make
+	(cd build/deps/newsoftserial &&  avr-ar cq ../newsoftserial.a *.o)
+
+
