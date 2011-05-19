@@ -23,6 +23,10 @@ upload: app.hex
 	avrdude -F -V -D -c $(PROTOCOL) -p $(MCU) -P $(PORT) -b $(BAUD) -U flash:w:$<
 .PHONY: upload
 
+upload-usbtiny: app.hex
+	avrdude -F -V -D -c usbtiny -p $(MCU) -U flash:w:$<
+.PHONY: upload-usbtiny
+
 serial:
 	screen $(PORT) $(BAUD)
 .PHONY: serial
