@@ -10,6 +10,8 @@ class DenonDvd {
 
   public:
 
+    DenonDvd() : _on(false) {}
+
     void on() {
       if (!_on) {
         // TODO: Send DVD PowerOn

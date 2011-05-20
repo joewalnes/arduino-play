@@ -10,6 +10,8 @@ class Comcast {
 
   public:
 
+    Comcast() : _on(false) {}
+
     void on() {
       if (!_on) {
         // TODO: Send Comcast PowerOn
