@@ -4,8 +4,10 @@
 
 class RokuStreamer {
 
-  void forceReset() {
-  }
+  public:
+
+    void forceReset() {
+    }
 
 };
 

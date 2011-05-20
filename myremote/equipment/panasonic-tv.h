@@ -29,7 +29,7 @@ class PanasonicTv {
     }
 
     void off() {
-      if (on) {
+      if (_on) {
         ir.send(ir.nec(0x55AAD8A7)); // TV PowerOff
         _on = false;
       }
