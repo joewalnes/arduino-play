@@ -20,9 +20,15 @@ class Comcast {
     }
 
     void off() {
+      if (_on) {
+        // TODO: Send Comcast PowerOff
+        _on = false;
+      }
+    }
+
+    void forceReset() {
       // TODO: Send Comcast PowerOff
       _on = false;
     }
-
 };
 

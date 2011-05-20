@@ -60,5 +60,12 @@ class MainRoom {
       comcast.off();
     }
 
+    void forceReset() {
+      amp.forceReset();
+      tv.forceReset();
+      dvd.forceReset();
+      comcast.forceReset();
+      roku.forceReset();
+    }
 };
 

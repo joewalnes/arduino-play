@@ -52,8 +52,10 @@ class OnkyoAmp {
     }
 
     void off() {
-      // TODO: ir.send(ir.nec(0xXXX)); // PowerOff
-      _current = OFF;
+      if (_current != OFF) {
+        // TODO: ir.send(ir.nec(0xXXX)); // PowerOff
+        _current = OFF;
+      }
     }
 
     void mute() {
@@ -74,6 +76,13 @@ class OnkyoAmp {
       for (int i = 0; i < abs(amount); i++) {
         ir.send(ir.nec(amount > 0 ? 0x4BB640BF : 0x4BB6C03F)); // VolumeUp/Down
       }
+    }
+
+    void forceReset() {
+      ir.send(ir.nec(0x4B36A15E)); // MuteOff
+      // TODO: ir.send(ir.nec(0xXXX)); // PowerOff
+      _current = OFF;
+      _muted = false;
     }
 
   private:

@@ -20,6 +20,13 @@ class DenonDvd {
     }
 
     void off() {
+      if (_on) {
+         // TODO: Send DVD PowerOff
+         _on = false;
+      }
+    }
+
+    void forceReset() {
       // TODO: Send DVD PowerOff
       _on = false;
     }
