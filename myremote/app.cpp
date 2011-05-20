@@ -8,9 +8,10 @@ CmdMessenger cmdMessenger = CmdMessenger(Serial, ' ', ';');
 MainRoom room;
 
 enum Cmds {
-  PING = 0,
-  PONG = 1,
-  ACTIVITY = 10
+  PING     = 0,
+  PONG     = 1,
+  ACTIVITY = 10,
+  RESET    = 11
 };
 
 void ping() {
@@ -28,10 +29,15 @@ void changeActivity() {
   }
 }
 
+void forceReset() {
+  room.forceReset();
+}
+
 void setup() {
   Serial.begin(BAUD);
   cmdMessenger.attach(PING, ping);
   cmdMessenger.attach(ACTIVITY, changeActivity);
+  cmdMessenger.attach(RESET, forceReset);
 }
 
 void loop() {
