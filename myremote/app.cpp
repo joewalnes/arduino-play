@@ -1,17 +1,24 @@
 #include <Arduino.h>
-#include <IRremote.h>
+#include <CmdMessenger.h>
 
 #include "rooms/MainRoom.h"
 
-IRsend irsend;
+CmdMessenger cmdMessenger = CmdMessenger(Serial, ' ', ';');
+
 MainRoom room;
 
-void setup() {
-  Serial.begin(BAUD);
+enum Cmds {
+  PING = 0,
+  PONG = 1,
+  ACTIVITY = 10
+};
+
+void ping() {
+  cmdMessenger.sendCmd(PONG, "");
 }
 
-void loop() {
-  switch (Serial.read()) {
+void changeActivity() {
+  switch (cmdMessenger.readChar()) {
     case 'c': room.watchComcast(); break;
     case 'd': room.watchDvd(); break;
     case 'r': room.streamRoku(); break;
@@ -20,3 +27,14 @@ void loop() {
     case 'o': room.allOff(); break;
   }
 }
+
+void setup() {
+  Serial.begin(BAUD);
+  cmdMessenger.attach(PING, ping);
+  cmdMessenger.attach(ACTIVITY, changeActivity);
+}
+
+void loop() {
+  cmdMessenger.feedinSerialData();
+}
+
