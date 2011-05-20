@@ -1,6 +1,6 @@
 CC       = avr-gcc
 CXX      = avr-g++
-CFLAGS   += -w -g -Os -ffunction-sections -fdata-sections -lm
+CFLAGS   += $(INCLUDES) -w -g -Os -ffunction-sections -fdata-sections -lm
 CFLAGS   += -DBAUD=$(BAUD) -DF_CPU=$(F_CPU) -mmcu=$(MCU) -DARDUINO=22 -lm
 CXXFLAGS += $(CFLAGS) -fno-exceptions
 
@@ -53,5 +53,17 @@ build/deps/newsoftserial.a: ../lib/NewSoftSerial/*.cpp
 	cp -R $^ build/deps/newsoftserial
 	ls build/deps/newsoftserial/*.cpp | sed -e 's/.cpp/.o/' | xargs make
 	(cd build/deps/newsoftserial &&  avr-ar cq ../newsoftserial.a *.o)
+
+build/deps/base64.a: ../lib/Base64/*.cpp ../lib/Base64/*.h
+	mkdir -p build/deps/base64
+	cp -R $^ build/deps/base64
+	ls build/deps/base64/*.cpp | sed -e 's/.cpp/.o/' | xargs make
+	(cd build/deps/base64 &&  avr-ar cq ../base64.a *.o)
+
+build/deps/cmdmessenger.a: ../lib/CmdMessenger/*.cpp ../lib/CmdMessenger/*.h ../lib/Streaming/Streaming.h
+	mkdir -p build/deps/cmdmessenger
+	cp -R $^ build/deps/cmdmessenger
+	ls build/deps/cmdmessenger/*.cpp | sed -e 's/.cpp/.o/' | xargs make INCLUDES=-Ibuild/deps/cmdmessenger
+	(cd build/deps/cmdmessenger &&  avr-ar cq ../cmdmessenger.a *.o)
 
 
