@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core.h"
+#include "control/infrared.h"
 
 class DenonDvd {
 
@@ -12,13 +12,13 @@ class DenonDvd {
 
     void on() {
       if (!_on) {
-        // Send DVD PowerOn
+        // TODO: Send DVD PowerOn
         _on = true;
       }
     }
 
     void off() {
-      // Send DVD PowerOff
+      // TODO: Send DVD PowerOff
       _on = false;
     }
 

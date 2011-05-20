@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core.h"
+#include "control/infrared.h"
 
 class Comcast {
 
@@ -12,13 +12,13 @@ class Comcast {
 
     void on() {
       if (!_on) {
-        // Send Comcast PowerOn
+        // TODO: Send Comcast PowerOn
         _on = true;
       }
     }
 
     void off() {
-      // Send Comcast PowerOff
+      // TODO: Send Comcast PowerOff
       _on = false;
     }
 

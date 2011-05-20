@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core.h"
+#include "control/infrared.h"
 
 class PanasonicTv {
 
@@ -11,38 +11,38 @@ class PanasonicTv {
 
   public:
 
+    PanasonicTv() : _on(false), _current(0) {}
+
     void input(int number) {
       on();
       if (_current != number) {
-        // Send Onkyo input N
+        switch (number) {
+          case 1: ir.send(ir.nec(0x55AA5AA5, 0xF50A5EA1)); break; // TV Input1
+          case 2: ir.send(ir.nec(0x55AA5AA5, 0xF50ADE21)); break; // TV Input2
+          case 3: ir.send(ir.nec(0x55AA5AA5, 0xF50A3EC1)); break; // TV Input3
+          case 4: ir.send(ir.nec(0x55AA5AA5, 0xF50ABE41)); break; // TV Input4
+          case 5: ir.send(ir.nec(0x55AA5AA5, 0xF50A7E81)); break; // TV Input5
+          case 6: ir.send(ir.nec(0x55AA5AA5, 0xF50AFE01)); break; // TV Input6
+        }
         _current = number;
       }
     }
 
     void off() {
-      // Send TV PowerOff
+      ir.send(ir.nec(0x55AAD8A7)); // TV PowerOff
       _on = false;
+    }
+
+    void changeScreenSize() {
+      ir.send(ir.nec(0x55AA7A85, 0xF50A5CA3)); // TV ScreenSize
     }
 
   private:
 
     void on() {
       if (!_on) {
-        // Send TV PowerOn
+        ir.send(ir.nec(0x55AA58A7)); // TV PowerOn
         _on = true;
       }
     }
 };
-
-/*  
-== TV ==
-On: NEC: 55AA58A7 (32 bits)
-Off: NEC: 55AAD827 (32 bits)
-Input1: NEC: 55AA5AA5 (32 bits), NEC: F50A5EA1 (32 bits)
-Input2: NEC: 55AA5AA5 (32 bits), NEC: F50ADE21 (32 bits)
-Input3: NEC: 55AA5AA5 (32 bits), NEC: F50A3EC1 (32 bits)
-Input4: NEC: 55AA5AA5 (32 bits), NEC: F50ABE41 (32 bits)
-Input5: NEC: 55AA5AA5 (32 bits), NEC: F50A7E81 (32 bits)
-Input6: NEC: 55AA5AA5 (32 bits), NEC: F50AFE01 (32 bits)
-Screen size: NEC: 55AA7A85 (32 bits), NEC: F50A5CA3 (32 bits)
-*/

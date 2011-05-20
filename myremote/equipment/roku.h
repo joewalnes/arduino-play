@@ -1,13 +1,12 @@
 #pragma once
 
-#include "core.h"
+#include "control/infrared.h"
 
 class RokuStreamer {
 
 };
 
 /*  
-== Roku ==
 Play/Pause: NEC: 574332CD (32 bits)
 <<: NEC: 57432CD3 (32 bits)
   repeat: NEC: 57432DD2 (32 bits)
