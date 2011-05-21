@@ -53,7 +53,7 @@ class OnkyoAmp {
 
     void off() {
       if (_current != OFF) {
-        // TODO: ir.send(ir.nec(0xXXX)); // PowerOff
+        ir.send(ir.nec(0x4B36E21D)); // PowerOff
         _current = OFF;
       }
     }
@@ -80,7 +80,7 @@ class OnkyoAmp {
 
     void forceReset() {
       ir.send(ir.nec(0x4B36A15E)); // MuteOff
-      // TODO: ir.send(ir.nec(0xXXX)); // PowerOff
+      ir.send(ir.nec(0x4B36E21D)); // PowerOff
       _current = OFF;
       _muted = false;
     }
