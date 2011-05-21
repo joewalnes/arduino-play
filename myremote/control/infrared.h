@@ -1,29 +1,28 @@
 #pragma once
 
-struct IrCommand {
-};
+#include <IRremote.h>
 
-struct NecSingleCommand : public IrCommand {
-// 32 bits
-};
-
-struct NecDoubleCommand : public IrCommand {
-// 32 bits
-};
-
+/**
+ * IRremote library uses digital pin 3 for output
+ */
 class IrController {
+
+  private:
+
+    IRsend _irsend;
 
   public:
 
-    IrCommand nec(int code) {
-      return NecSingleCommand();
+    void nec(int code) {
+      for (int i = 0; i < 3; i++) {
+        _irsend.sendNEC(code, 32);
+        delay(100);
+      }
     }
 
-    IrCommand nec(int code1, int code2) {
-      return NecDoubleCommand();
-    }
-
-    void send(IrCommand command) {
+    void nec(int code1, int code2) {
+      nec(code1);
+      nec(code2);
     }
 
 } ir;

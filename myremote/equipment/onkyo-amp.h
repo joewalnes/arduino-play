@@ -53,34 +53,34 @@ class OnkyoAmp {
 
     void off() {
       if (_current != OFF) {
-        ir.send(ir.nec(0x4B36E21D)); // PowerOff
+        ir.nec(0x4B36E21D); // PowerOff
         _current = OFF;
       }
     }
 
     void mute() {
       if (!_muted) {
-        ir.send(ir.nec(0x4B3621DE)); // MuteOn
+        ir.nec(0x4B3621DE); // MuteOn
         _muted = true;
       }
     }
 
     void unmute() {
       if (_muted) {
-        ir.send(ir.nec(0x4B36A15E)); // MuteOff
+        ir.nec(0x4B36A15E); // MuteOff
         _muted = false;
       }
     }
 
     void alterVolum(int amount) {
       for (int i = 0; i < abs(amount); i++) {
-        ir.send(ir.nec(amount > 0 ? 0x4BB640BF : 0x4BB6C03F)); // VolumeUp/Down
+        ir.nec(amount > 0 ? 0x4BB640BF : 0x4BB6C03F); // VolumeUp/Down
       }
     }
 
     void forceReset() {
-      ir.send(ir.nec(0x4B36A15E)); // MuteOff
-      ir.send(ir.nec(0x4B36E21D)); // PowerOff
+      ir.nec(0x4B36A15E); // MuteOff
+      ir.nec(0x4B36E21D); // PowerOff
       _current = OFF;
       _muted = false;
     }
@@ -89,19 +89,19 @@ class OnkyoAmp {
 
     void switchInput(Input input) {
       if (_current == OFF) {
-        ir.send(ir.nec(0x4BB620DF)); // PowerOn
+        ir.nec(0x4BB620DF); // PowerOn
       }
       if (_current != input) {
         switch (input) {
-          case DVR:     ir.send(ir.nec(0x4BB6F00F)); break; // InputDVR
-          case CABLE:   ir.send(ir.nec(0x4BB6708F)); break; // InputCable
-          case GAME:    ir.send(ir.nec(0x4BB6B04F)); break; // InputGame
-          case AUX:     ir.send(ir.nec(0x4BB6F906)); break; // InputAux
-          case MULTICH: ir.send(ir.nec(0x4B3620DF)); break; // InputMultichannel
-          case DVD:     ir.send(ir.nec(0x4B3631CE)); break; // InputDvd
-          case TAPE:    ir.send(ir.nec(0x4BB610EF)); break; // InputTape
-          case TUNER:   ir.send(ir.nec(0x4BB6D02F)); break; // InputTuner
-          case CD:      ir.send(ir.nec(0x4BB6906F)); break; // InputCD
+          case DVR:     ir.nec(0x4BB6F00F); break; // InputDVR
+          case CABLE:   ir.nec(0x4BB6708F); break; // InputCable
+          case GAME:    ir.nec(0x4BB6B04F); break; // InputGame
+          case AUX:     ir.nec(0x4BB6F906); break; // InputAux
+          case MULTICH: ir.nec(0x4B3620DF); break; // InputMultichannel
+          case DVD:     ir.nec(0x4B3631CE); break; // InputDvd
+          case TAPE:    ir.nec(0x4BB610EF); break; // InputTape
+          case TUNER:   ir.nec(0x4BB6D02F); break; // InputTuner
+          case CD:      ir.nec(0x4BB6906F); break; // InputCD
         }
         _current = input;
       }
