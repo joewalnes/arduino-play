@@ -90,6 +90,7 @@ class OnkyoAmp {
     void switchInput(Input input) {
       if (_current == OFF) {
         ir.nec(0x4BB620DF); // PowerOn
+        ir.longPause();
       }
       if (_current != input) {
         switch (input) {

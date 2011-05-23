@@ -22,7 +22,8 @@ void loop() {
   if (Serial.read() != -1) {
     Serial.println(toggle ? "ON!" : "OFF!");
     for (int i = 0; i < 3; i++) {
-      irsend.sendNEC(toggle ? 0x4BB620DF : 0x4B36E21D, 32);
+      irsend.sendNEC(toggle ? 0x4BB620DF : 0x4B36E21D, 32); // Onkyo
+      //irsend.sendNEC(toggle ? 0x55AA58A7 : 0x55AAD827, 32); // Panasonic TV
       delay(100);
     }
     toggle = !toggle;

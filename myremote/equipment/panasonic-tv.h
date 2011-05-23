@@ -51,6 +51,7 @@ class PanasonicTv {
       if (!_on) {
         ir.nec(0x55AA58A7); // TV PowerOn
         _on = true;
+        ir.longPause();
       }
     }
 };

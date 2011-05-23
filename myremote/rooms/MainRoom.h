@@ -20,28 +20,28 @@ class MainRoom {
 
     void watchComcast() {
       amp.cable();
-      tv.input(4);
+      tv.input(5);
       dvd.off();
       comcast.on();
     }
 
     void watchDvd() {
       amp.dvd();
-      tv.input(4);
+      tv.input(2);
       dvd.on();
       comcast.off();
     }
 
     void streamRoku() {
       amp.dvr();
-      tv.input(4);
+      tv.input(5);
       dvd.off();
       comcast.off();
     }
 
     void playPlaystation() {
       amp.game();
-      tv.input(4);
+      tv.input(6);
       dvd.off();
       comcast.off();
     }
