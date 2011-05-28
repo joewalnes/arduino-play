@@ -30,13 +30,13 @@ class PanasonicTv {
 
     void off() {
       if (_on) {
-        ir.nec(0x55AAD8A7); // TV PowerOff
+        ir.nec(0x55AAD827); // TV PowerOff
         _on = false;
       }
     }
 
     void forceReset() {
-      ir.nec(0x55AAD8A7); // TV PowerOff
+      ir.nec(0x55AAD827); // TV PowerOff
       _on = false;
       _current = 0;
     }
