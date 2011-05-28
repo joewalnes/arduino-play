@@ -14,16 +14,14 @@ class IrController {
   public:
 
     void nec(unsigned long code) {
-      for (int i = 0; i < 3; i++) {
-        _irsend.sendNEC(code, 32);
-        delay(100);
-      }
+      _irsend.sendNEC(code, 32);
       shortPause();
     }
 
     void nec(unsigned long code1, unsigned long code2) {
-      nec(code1);
-      nec(code2);
+      _irsend.sendNEC(code1, 32);
+      _irsend.sendNEC(code2, 32);
+      shortPause();
     }
 
     void shortPause() {
@@ -31,6 +29,7 @@ class IrController {
     }
 
     void longPause() {
-      delay(1500);
+      delay(6000);
     }
+
 } ir;
