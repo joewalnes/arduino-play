@@ -1,4 +1,15 @@
-ALLDEVICES = mini fio diamondback
+ALLDEVICES = uno mini fio diamondback
+
+# DEVICE=uno (Arduino UN)
+AVAILABLE_DEVICES += uno
+ifeq ($(DEVICE),uno)
+F_CPU=16000000L
+MCU=atmega328p
+PORT=/dev/tty.usbserial*
+BAUD=115200
+PROTOCOL=stk500v1
+DEVICE_SET=true
+endif
 
 # DEVICE=mini (Arduino Mini Pro)
 AVAILABLE_DEVICES += mini
