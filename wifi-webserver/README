@@ -1,0 +1,2 @@
+To build, you need to copy wifi-settings-sample.h to wifi-settings.h and stick
+the correct settings in.

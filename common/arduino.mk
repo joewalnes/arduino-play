@@ -108,5 +108,9 @@ build/deps/ethernetbonjour.a: ../lib/EthernetBonjour/*.cpp ../lib/EthernetBonjou
 	ls build/deps/ethernetbonjour/*.cpp | sed -e 's/.cpp/.o/' | xargs make INCLUDES=-Ibuild/deps/ethernetbonjour
 	(cd build/deps/ethernetbonjour &&  avr-ar cq ../ethernetbonjour.a *.o)
 
-
+build/deps/wishield.a: ../lib/WiShield/*.cpp ../lib/WiShield/*.c ../lib/WiShield/*.h
+	mkdir -p build/deps/wishield
+	cp -R $^ build/deps/wishield
+	ls build/deps/wishield/*.cpp build/deps/wishield/*.c | sed -e 's/.cpp$$/.o/;s/.c$$/.o/' | xargs make INCLUDES=-Ibuild/deps/wishield
+	(cd build/deps/wishield &&  avr-ar cq ../wishield.a *.o)
 
