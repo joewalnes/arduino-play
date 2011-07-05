@@ -1,0 +1,24 @@
+Arduino program for http://www.cutedigi.com/product_info.php?products_id=4363
+that connects to my WiFi router, starts a web server, listens for requests
+and sends the appropriate IR commands to get my AV equipment into the right
+state (e.g. switching inputs, turning things on/off, etc). Remembers the state
+of the world.
+
+I use it like this: http://mainroom/dvd (do whatever needs to be done so that
+I'm now ready to watch a DVD - turn TV on, set to right input, turn amp on,
+set that to right input, turn everything else off).
+
+To build, you need to copy wifi-settings-sample.h to wifi-settings.h and stick
+the correct settings in.
+
+Connect IR LED to Arduino:
+ + leg to digital pin 3
+ - leg to 100ohm resistor
+ other end of resistor to 3.3V terminal
+
+rooms/MainRoom.cpp contains the recipies (state transitions) for performing an activity.
+
+equipment/ contains remote codes.
+
+app.cpp is the main app. It starts a web server and maps requests to the appropriate activity.
+
