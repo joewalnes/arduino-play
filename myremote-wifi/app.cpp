@@ -22,12 +22,12 @@ MainRoom room;
 int n = 0;
 
 int handle_connection(webserver_state* s) {
-	PSOCK_BEGIN(&s->p);
+  PSOCK_BEGIN(&s->p);
 
-	// Read HTTP verb (e.g. GET/POST) - and ignore it.
-	PSOCK_READTO(&s->p, ' ');
-	// Read requested path (up to next space)
-	PSOCK_READTO(&s->p, ' ');
+  // Read HTTP verb (e.g. GET/POST) - and ignore it.
+  PSOCK_READTO(&s->p, ' ');
+  // Read requested path (up to next space)
+  PSOCK_READTO(&s->p, ' ');
 
   RESPOND_STR(s, "HTTP/1.1 200 OK\r\n");
   RESPOND_STR(s, "Content-Type: text/plain\r\n");
@@ -67,27 +67,27 @@ int handle_connection(webserver_state* s) {
 }
 
 void setup() {
-	WiFi.init();
+  WiFi.init();
 }
 
 void loop() {
-	WiFi.run();
+  WiFi.run();
 }
 
 extern "C" {
 
 void webserver_init() {
-	uip_listen(HTONS(80));
+  uip_listen(HTONS(80));
 }
 
 void webserver_appcall() {
-	webserver_state* s = &(uip_conn->appstate);
+  webserver_state* s = &(uip_conn->appstate);
 
-	if(uip_connected()) {
-		PSOCK_INIT(&s->p, (unsigned char*)s->inputbuf, sizeof(s->inputbuf));
-	}
+  if(uip_connected()) {
+    PSOCK_INIT(&s->p, (unsigned char*)s->inputbuf, sizeof(s->inputbuf));
+  }
 
-	handle_connection(s);
+  handle_connection(s);
 }
 
 } // extern "C"
