@@ -114,3 +114,10 @@ build/deps/wishield.a: ../lib/WiShield/*.cpp ../lib/WiShield/*.c ../lib/WiShield
 	ls build/deps/wishield/*.cpp build/deps/wishield/*.c | sed -e 's/.cpp$$/.o/;s/.c$$/.o/' | xargs make INCLUDES=-Ibuild/deps/wishield
 	(cd build/deps/wishield &&  avr-ar cq ../wishield.a *.o)
 
+build/deps/mirf.a: ../lib/Mirf/*.cpp ../lib/Mirf/*.h
+	mkdir -p build/deps/mirf
+	cp -R $^ build/deps/mirf
+	ls build/deps/mirf/*.cpp | sed -e 's/.cpp/.o/' | xargs make INCLUDES=-Ibuild/deps/mirf
+	(cd build/deps/mirf &&  avr-ar cq ../mirf.a *.o)
+
+
