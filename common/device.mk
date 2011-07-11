@@ -1,11 +1,11 @@
 ALLDEVICES = uno mini fio diamondback
 
-# DEVICE=uno (Arduino UN)
+# DEVICE=uno (Arduino UNO)
 AVAILABLE_DEVICES += uno
 ifeq ($(DEVICE),uno)
 F_CPU=16000000L
 MCU=atmega328p
-PORT=/dev/tty.usbserial*
+PORT=/dev/tty.usbmodem*
 BAUD=115200
 PROTOCOL=stk500v1
 DEVICE_SET=true
