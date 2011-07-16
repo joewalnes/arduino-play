@@ -120,4 +120,11 @@ build/deps/mirf.a: ../lib/Mirf/*.cpp ../lib/Mirf/*.h
 	ls build/deps/mirf/*.cpp | sed -e 's/.cpp/.o/' | xargs make INCLUDES=-Ibuild/deps/mirf
 	(cd build/deps/mirf &&  avr-ar cq ../mirf.a *.o)
 
+build/deps/hughesyshiftbrite.a: ../lib/HughesyShiftBrite/*.cpp
+	mkdir -p build/deps/hughesyshiftbrite
+	cp -R $^ build/deps/hughesyshiftbrite
+	ls build/deps/hughesyshiftbrite/*.cpp | sed -e 's/.cpp/.o/' | xargs make
+	(cd build/deps/hughesyshiftbrite &&  avr-ar cq ../hughesyshiftbrite.a *.o)
+
+
 
