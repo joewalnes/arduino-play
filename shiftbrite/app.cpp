@@ -1,6 +1,21 @@
 #include <Arduino.h>
 #include "HughesyShiftBrite.h"
 
+/**
+ * Example showing how to drive a ShiftBrite RGB glowy
+ * thingy <http://docs.macetech.com/doku.php/shiftbrite>
+ * using the HughesyShiftBrite library.
+ * <http://code.google.com/p/shiftbritehughesyarduino/>.
+ *
+ * Arduino -> ShiftBrite
+ * --------------------
+ * 5V -> V+
+ * GND -> GND
+ * D10 -> D1
+ * D11 -> L1
+ * D12 -> E1
+ * D13 -> C1
+ */
 HughesyShiftBrite sb;
 
 int maxVal = 1023;
