@@ -126,5 +126,11 @@ build/deps/hughesyshiftbrite.a: ../lib/HughesyShiftBrite/*.cpp
 	ls build/deps/hughesyshiftbrite/*.cpp | sed -e 's/.cpp/.o/' | xargs make
 	(cd build/deps/hughesyshiftbrite &&  avr-ar cq ../hughesyshiftbrite.a *.o)
 
+build/deps/wire.a: ../lib/Wire/*.cpp
+	mkdir -p build/deps/wire
+	cp -R $^ ../lib/wire/utility/* build/deps/wire
+	ls build/deps/wire/*.cpp build/deps/wire/*.c | sed -e 's/.cpp/.o/;s/.c/.o/' | xargs make
+	(cd build/deps/wire &&  avr-ar cq ../wire.a *.o)
+
 
 
