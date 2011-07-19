@@ -12,7 +12,7 @@ struct DateTime {
   int day;    // 0-6 (sunday->saturday)
   int date;   // 0-31
   int month;  // 1-12
-  int year;   // e.g. 2011
+  int year;   // 1-99 
 
   /**
    * Print data in human readable format to
@@ -21,11 +21,12 @@ struct DateTime {
    * Example format: "2011/07/18 [Mon] 15:04:33"
    */
   void print(Print* out) {
-    out->print(year);
+    out->print("20");
+    pad(out, year);
     out->print("/");
-    out->print(month);
+    pad(out, month);
     out->print("/");
-    out->print(date);
+    pad(out, date);
     out->print(" [");
     switch (day) {
       case 0: out->print("Sun"); break;
@@ -37,11 +38,18 @@ struct DateTime {
       case 6: out->print("Sat"); break;
     }
     out->print("] ");
-    out->print(hour);
+    pad(out, hour);
     out->print(":");
-    out->print(minute);
+    pad(out, minute);
     out->print(":");
-    out->print(second);
+    pad(out, second);
   }
 
+private:
+  void pad(Print* out, int value) {
+    if (value < 10) {
+      out->print("0");
+    }
+    out->print(value);
+  }
 };
