@@ -23,14 +23,22 @@
  * D13 -> C1
  */
 
+struct Color {
+  int red;
+  int green;
+  int blue;
+  Color(int r, int g, int b) : red(r), green(g), blue(b) {}
+};
+
 void dumpTimeToSerial();
-void toggleColor();
+void updateColor();
+Color getGlowColor(Time time);
 
 RealTimeClock rtc;
 HughesyShiftBrite rgb;
 
 Timer dumpTimer(1000, dumpTimeToSerial);
-Timer toggleTimer(3000, toggleColor);
+Timer updateColorTimer(3000, updateColor);
 
 void setup(){
   rgb = HughesyShiftBrite();
@@ -40,29 +48,36 @@ void setup(){
   rgb.sendColour(200, 0, 0);
 }
 
+void loop() {
+  dumpTimer.run();
+  updateColorTimer.run();
+}
+
 void dumpTimeToSerial() {
   Serial.print("Current time: ");
   // Time from RTC module. ie. Real world time.
-  DateTime now = rtc.getCurrentTime();
+  DateTime now = rtc.now();
   now.print(&Serial);
   Serial.println();
 }
 
-bool isOn;
-
-void toggleColor() {
-  if (isOn) {
-    Serial.println("Toggle on");
-    rgb.sendColour(0, 600, 0);
-  } else {
-    Serial.println("Toggle off");
-    rgb.sendColour(400, 0, 500);
-  }
-  isOn = !isOn;
+void updateColor() {
+  DateTime now = rtc.now();
+  Time time = now.timeOfDay();
+  Color color = getGlowColor(time);
+  rgb.sendColour(color.red, color.green, color.blue);
 }
 
-void loop() {
-  dumpTimer.run();
-  toggleTimer.run();
+Color getGlowColor(Time time){
+  //                   HH:MM                  RED GREEN  BLUE
+  if      (time < Time(23, 30)
+        && time > Time(10))     return Color( 256,  265,  256); // Evening          (white/dim)
+  else if (time < Time( 4, 30)) return Color( 256,    0,    0); // Deep sleep       (red/dim)
+  else if (time < Time( 6    )) return Color( 512,  512,    0); // Dawn approaching (yellow/medium)
+  else if (time < Time( 6, 30)) return Color(1023, 1023,    0); // Wake up time     (yellow/bright)
+  else if (time < Time( 7    )) return Color(   0, 1023,    0); // Wake up NOW!     (green/bright)
+  else if (time < Time(10    )) return Color(1023,    0, 1023); // LATE!!!!         (purple/bright)
+  else                          return Color(   0,    0,    0); // Daytime          (OFF)
 }
+
 

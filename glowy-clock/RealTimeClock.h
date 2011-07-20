@@ -45,7 +45,7 @@ public:
   /**
    * Reads current time from RTC module.
    */
-  DateTime getCurrentTime() {
+  DateTime now() {
     // Reset the register pointer
     Wire.beginTransmission(DS1307_ADDRESS);
     Wire.send(0);
