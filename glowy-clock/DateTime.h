@@ -14,11 +14,11 @@ struct Time {
   Time(int hour = 0, int minute = 0, int second = 0, int milliseconds = 0)
     : hour(hour), minute(minute), second(second), millisecond(millisecond) {}
 
-  int value() const {
-    return millisecond
-      + second * 1000
-      + minute * 1000 * 60
-      + hour * 1000 * 60 * 60;
+  long value() const {
+    return (long)millisecond
+      + (long)second * 1000
+      + (long)minute * 1000 * 60
+      + (long)hour * 1000 * 60 * 60;
   }
 
 };

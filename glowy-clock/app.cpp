@@ -39,14 +39,16 @@ HughesyShiftBrite rgb;
 Timer timer;
 
 void setup(){
-  rgb = HughesyShiftBrite();
   Serial.begin(BAUD);
+  rgb = HughesyShiftBrite();
   rtc.init();
   Serial.println("Clock started");
 
-  timer = Timer();
   timer.schedule(1000, dumpTimeToSerial);
   timer.schedule(3000, updateColor);
+
+  dumpTimeToSerial();
+  updateColor();
 }
 
 void loop() {
@@ -55,8 +57,7 @@ void loop() {
 
 void dumpTimeToSerial() {
   Serial.print("Current time: ");
-  // Time from RTC module. ie. Real world time.
-  DateTime now = rtc.now();
+  DateTime now = rtc.now(); // Time from RTC module. ie. Real world time.
   now.print(&Serial);
   Serial.println();
 }
@@ -66,18 +67,37 @@ void updateColor() {
   Time time = now.timeOfDay();
   Color color = getGlowColor(time);
   rgb.sendColour(color.red, color.green, color.blue);
+
+  /* Debug
+  Serial.print("UPDATE: ");
+  Serial.print(time.hour);
+  Serial.print(":");
+  Serial.print(time.minute);
+  Serial.print(":");
+  Serial.print(time.second);
+  Serial.print(":");
+  Serial.print(time.millisecond);
+  Serial.print(" ");
+  Serial.print(time.value());
+  Serial.print(" ");
+  Serial.print(color.red);
+  Serial.print(",");
+  Serial.print(color.green);
+  Serial.print(",");
+  Serial.print(color.blue);
+  Serial.println();
+  */
 }
 
 Color getGlowColor(Time time){
   //                   HH:MM                  RED GREEN  BLUE
   if      (time < Time(23, 30)
-        && time > Time(10))     return Color( 256,  265,  256); // Evening          (white/dim)
-  else if (time < Time( 4, 30)) return Color( 256,    0,    0); // Deep sleep       (red/dim)
-  else if (time < Time( 6    )) return Color( 512,  512,    0); // Dawn approaching (yellow/medium)
-  else if (time < Time( 6, 30)) return Color(1023, 1023,    0); // Wake up time     (yellow/bright)
-  else if (time < Time( 7    )) return Color(   0, 1023,    0); // Wake up NOW!     (green/bright)
-  else if (time < Time(10    )) return Color(1023,    0, 1023); // LATE!!!!         (purple/bright)
-  else                          return Color(   0,    0,    0); // Daytime          (OFF)
+        && time > Time(19    )) return Color(  32,   32,   32); // Evening
+  else if (time < Time( 4, 30)) return Color(   8,    0,    0); // Deep sleep
+  else if (time < Time( 6    )) return Color( 128,   32,    0); // Dawn approaching
+  else if (time < Time( 6, 30)) return Color(1023, 1023,    0); // Wake up time
+  else if (time < Time( 7    )) return Color(   0, 1023,    0); // Wake up NOW!
+  else if (time < Time(10    )) return Color(   0, 1023, 1023); // LATE!!!!
+  else                          return Color(   0,    0,    0); // Daytime
 }
-
 
