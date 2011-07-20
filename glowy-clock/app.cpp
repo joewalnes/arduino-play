@@ -36,21 +36,21 @@ Color getGlowColor(Time time);
 
 RealTimeClock rtc;
 HughesyShiftBrite rgb;
-
-Timer dumpTimer(1000, dumpTimeToSerial);
-Timer updateColorTimer(3000, updateColor);
+Timer timer;
 
 void setup(){
   rgb = HughesyShiftBrite();
   Serial.begin(BAUD);
   rtc.init();
   Serial.println("Clock started");
-  rgb.sendColour(200, 0, 0);
+
+  timer = Timer();
+  timer.schedule(1000, dumpTimeToSerial);
+  timer.schedule(3000, updateColor);
 }
 
 void loop() {
-  dumpTimer.run();
-  updateColorTimer.run();
+  timer.tick();
 }
 
 void dumpTimeToSerial() {
