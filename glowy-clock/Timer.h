@@ -77,7 +77,7 @@ public:
   }
 
   /**
-   * Arduino doesn't support constructors, so you have
+   * Arduino doesn't support destructors, so you have
    * to explicitly call this to free memory when you're done.
    * It's unlikely that you'll ever need this, but just in case.
    */
