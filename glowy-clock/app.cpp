@@ -91,9 +91,10 @@ void updateColor() {
 
 Color getGlowColor(Time time){
   //                   HH:MM                  RED GREEN  BLUE
-  if      (time < Time(23, 30)
+  if      (time < Time(22    )
         && time > Time(19    )) return Color(  32,   32,   32); // Evening
-  else if (time < Time( 4, 30)) return Color(   8,    0,    0); // Deep sleep
+  else if (time < Time( 5    )
+        || time >= Time(22   )) return Color(   8,    0,    0); // Deep sleep
   else if (time < Time( 6    )) return Color( 128,   32,    0); // Dawn approaching
   else if (time < Time( 6, 30)) return Color(1023, 1023,    0); // Wake up time
   else if (time < Time( 7    )) return Color(   0, 1023,    0); // Wake up NOW!
