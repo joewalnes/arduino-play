@@ -60,7 +60,7 @@ public:
     result.day = bcdToDec(Wire.receive());
     result.date = bcdToDec(Wire.receive());
     result.month = bcdToDec(Wire.receive());
-    result.year = bcdToDec(Wire.receive());
+    result.year = bcdToDec(Wire.receive()) + 2000;
 
     return result;
   }
@@ -78,7 +78,7 @@ public:
     Wire.send(decToBcd(time.day));
     Wire.send(decToBcd(time.date));
     Wire.send(decToBcd(time.month));
-    Wire.send(decToBcd(time.year));
+    Wire.send(decToBcd(time.year) - 2000);
 
     Wire.send(0); //start 
 

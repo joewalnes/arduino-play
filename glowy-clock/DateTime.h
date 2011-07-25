@@ -36,7 +36,7 @@ bool operator != (const Time& t1, const Time& t2) { return t1.value() != t2.valu
  * Holds a date and time.
  */
 struct DateTime {
-  int year;   // 1-99 
+  int year;   // 2001-2099 
   int month;  // 1-12
   int date;   // 0-31
   int day;    // 0-6 (sunday->saturday)
@@ -55,7 +55,6 @@ struct DateTime {
    * Example format: "2011/07/18 [Mon] 15:04:33"
    */
   void print(Print* out) const {
-    out->print("20");
     pad(out, year);
     out->print("/");
     pad(out, month);
