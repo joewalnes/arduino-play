@@ -22,6 +22,17 @@ PROTOCOL=stk500v1
 DEVICE_SET=true
 endif
 
+# DEVICE=nano (Arduino Nano V3)
+AVAILABLE_DEVICES += nano
+ifeq ($(DEVICE),nano)
+F_CPU=16000000L
+MCU=atmega328p
+PORT=/dev/tty.usbserial*
+BAUD=57600
+PROTOCOL=stk500v1
+DEVICE_SET=true
+endif
+
 # DEVICE=fio (Arduino Fio)
 AVAILABLE_DEVICES += fio
 ifeq ($(DEVICE),fio)
