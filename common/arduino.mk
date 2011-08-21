@@ -87,8 +87,8 @@ build/deps/sd.a: ../lib/SD/*.cpp ../lib/SD/*.h
 build/deps/ethernet.a: ../lib/Ethernet/*.cpp ../lib/Ethernet/*.h ../lib/SPI/SPI.h
 	mkdir -p build/deps/ethernet
 	cp -R $^ ../lib/Ethernet/utility build/deps/ethernet
-	ls build/deps/ethernet/*.cpp | sed -e 's/.cpp/.o/' | xargs make INCLUDES="-Ibuild/deps/ethernet -Ibuild/deps/ethernet/utility"
-	(cd build/deps/ethernet &&  avr-ar cq ../ethernet.a *.o)
+	ls build/deps/ethernet/*.cpp build/deps/ethernet/utility/*.cpp | sed -e 's/.cpp/.o/' | xargs make INCLUDES="-Ibuild/deps/ethernet -Ibuild/deps/ethernet/utility"
+	(cd build/deps/ethernet &&  avr-ar cq ../ethernet.a *.o utility/*.o)
 
 build/deps/ethernetdhcp.a: ../lib/EthernetDHCP/*.cpp ../lib/EthernetDHCP/*.h
 	mkdir -p build/deps/ethernetdhcp
