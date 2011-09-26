@@ -25,10 +25,10 @@
 
 // ---- Config ----
 // Local Ethernet settings
-byte localMac[] = {0xDE, 0xBB, 0xDA, 0xEF, 0xFE, 0xED};
-byte localIp[] = {192, 168, 0, 191};
+byte localMac[] = {0xDE, 0xBB, 0xDA, 0xEF, 0x11, 0x91};
+byte localIp[] = {10, 12, 14, 8};
 // Destination server
-byte serverIp[] = {192, 168, 0, 104};
+byte serverIp[] = {10, 12, 112, 61};
 int serverPort = 9980;
 // HTTP request. The button name (single char) will be sandwiched between these.
 #define REQUEST_PREFIX "GET /buttonpress/"
